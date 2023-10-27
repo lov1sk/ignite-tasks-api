@@ -1,8 +1,30 @@
 ###
-POST http://localhost:3434/ HTTP/1.1
+GET http://localhost:3434/tasks HTTP/1.1
+
+###
+POST http://localhost:3434/tasks HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Tamires dos Santos Alves",
-    "email": "tamidsa@gmail.com"
+    "title": "TADASDASDSAHVDASUVDUGSAVUDSAVD",
+    "a": "Tenho que terminar esse projeto"
 }
+
+###
+PUT http://localhost:3434/tasks/19c811f3-5483-4cfa-bfcf-a7565d063486 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Atualizando 3",
+    "description": "esse aqui nao foi completado ainda em, atualizada denovo"
+}
+###
+DELETE http://localhost:3434/tasks/f1134642-0fd3-4050-9bda-2feb0e632268 HTTP/1.1
+content-type: application/json
+
+###
+PATCH http://localhost:3434/tasks/19c811f3-5483-4cfa-bfcf-a7565d063486/complete HTTP/1.1
+content-type: application/json
+
+
+
