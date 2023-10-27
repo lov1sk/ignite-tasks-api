@@ -1,35 +1,52 @@
-TODOs
+# 🖥️ Projeto 1 - Tasks API
 
-[ x ] criar um middleware de stream para poder receber json
-[ x ] criar arquivo de rotas separado para podemos identificar a rota
-[ x ] criar a regex para conseguir separar os parametros informados na route param
+<hr />
 
-[ x ] criar classe para ser o banco de dados
+Neste projeto, foi realizado a criação de uma API REST totalmente do zero utilzando apenas o modulo interno de http do node. O desenvolvimento
+em questão foi muito interessante pois evidenciou varias tecnicas que geralmente microframeworks http deste ecosistema usa: como o express ou fastify.
+
+Exemplos:
+=> `Em casos que precisamos fazer leitura de parametros que vem do corpo da requisição (request body), a informação em
+si vem em pedaços e utilizando o conceito de streams, uma vez que tudo no node é uma stream,no nosso caso foi feito a partir de streams de leitura,
+a criação de um buffer e a alimentação desse buffer concatenando pedações de informações que chegavam, a fim de obter uma informação completa. O desenvolvimento desta 
+logica foi aplicada atravez de um middleware`
+
+=> Em casos onde enviamos parametros pela rota, como query params e route params, foi feito uma regex que capturava a partir da declaração da rota <code>route/:id</code>
+dados que eram enviados do cliente para manualmente poder inserir dentro do objeto request do modulo http.
+
+Tambem para conhecer o modulo file-system do node, foi criado uma base de dados que persistia dados em memoria (statefull) para arquivos .json, onde o sistema era
+responsavel por escrever no arquivo .json tudo o que estava salvo na memoria.
+
+## Requisitos funcionais
 
 [ x ] Deve ser possivel a criação de uma task
-[ x ] deve ser possivel listar as tasks
-[ x ] deve ser possivel atualizar uma task pelo seu id
-[ x ] deve ser possivel atualizar o status da task
-[ x ] deve ser possivel remover uma task
-[] deve ser possivel importar via stream, varias tasks via csv
+[ x ] Deve ser possivel listar todas as tasks
+[ x ] Deve ser possivel atualizar uma task pelo seu id
+[ x ] Deve ser possivel atualizar o status da task
+[ x ] Deve ser possivel remover uma task
+[ x ] Deve ser possivel importar via stream, varias tasks de um arquivo csv
 
-[ x ] Validar se as propriedades title e description das rotas POST e PUT estão presentes no body da requisição.
-[ x ] Nas rotas que recebem o /:id, além de validar se o id existe no banco de dados, retornar a requisição com uma mensagem informando que o registro não existe.
+## Regras de negocio
 
-Rotas:
+[ x ] Ao criar uma task, os campos: `id`, `created_at`, `updated_at` e `completed_at` devem ser preenchidos automaticamente, conforme a orientação das propriedades acima.
+[ x ] Também deve ser possível realizar uma busca, filtrando as tasks pelo `title` e `description`
+[ x ] Para atualizar uma task, deve consultar se o id realmente é de algum recurso salvo no banco
+[ x ] Para atualizar o status de uma task, deve alem de validar se o recurso existe, colocar a data que foi completado a task
+
+## Requisitos não funcionais:
+
+[ x ] Utilizar apenas o modulo interno `node:http` para configurar um servidor REST
+[ x ] Criar persistir os dados em um banco de dados baseado em um arquivo JSON
+
+## Rotas:
 
 - `POST - /tasks`
-  Deve ser possível criar uma task no banco de dados, enviando os campos `title` e `description` por meio do `body` da requisição.
-  Ao criar uma task, os campos: `id`, `created_at`, `updated_at` e `completed_at` devem ser preenchidos automaticamente, conforme a orientação das propriedades acima.
+  Rota para criação de uma task no banco de dados, enviando os campos `title` e `description` por meio do `body` da requisição.
 - `GET - /tasks`
-  Deve ser possível listar todas as tasks salvas no banco de dados.
-  Também deve ser possível realizar uma busca, filtrando as tasks pelo `title` e `description`
+  Rota para listagem de todas as tasks salvas no banco de dados.
 - `PUT - /tasks/:id`
-  Deve ser possível atualizar uma task pelo `id`.
-  No `body` da requisição, deve receber somente o `title` e/ou `description` para serem atualizados.
-  Se for enviado somente o `title`, significa que o `description` não pode ser atualizado e vice-versa.
-  Antes de realizar a atualização, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+  Rota para atualizar uma task pelo `id`.
 - `DELETE - /tasks/:id`
-  Deve ser possível remover uma task pelo `id`.
-  Antes de realizar a remoção, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+  Rota para remover uma task pelo `id`.
 - `PATCH - /tasks/:id/complete`
+  Rota para marcar a task como completa ou não. Isso significa que se a task estiver concluída, deve voltar ao seu estado “normal”.

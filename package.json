@@ -12,5 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.8.9"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.2",
+    "fs": "^0.0.1-security"
   }
 }
