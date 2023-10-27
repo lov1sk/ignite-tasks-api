@@ -2,12 +2,15 @@
 GET http://localhost:3434/tasks HTTP/1.1
 
 ###
+GET http://localhost:3434/tasks?search=tenho HTTP/1.1
+
+###
 POST http://localhost:3434/tasks HTTP/1.1
 content-type: application/json
 
 {
     "title": "TADASDASDSAHVDASUVDUGSAVUDSAVD",
-    "a": "Tenho que terminar esse projeto"
+    "description": "terminar esse projeto"
 }
 
 ###
@@ -23,7 +26,7 @@ DELETE http://localhost:3434/tasks/f1134642-0fd3-4050-9bda-2feb0e632268 HTTP/1.1
 content-type: application/json
 
 ###
-PATCH http://localhost:3434/tasks/19c811f3-5483-4cfa-bfcf-a7565d063486/complete HTTP/1.1
+PATCH http://localhost:3434/tasks/a61453e7-73ef-4512-9bdb-eb11c9bd5c8c/complete HTTP/1.1
 content-type: application/json
 
 

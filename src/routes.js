@@ -8,7 +8,17 @@ export const appRoutes = [
     method: "GET",
     path: buildRoutePath("/tasks"),
     controller(req, res) {
+      const { search } = req.query;
       const tasksSaved = database.list("tasks");
+
+      if (search) {
+        const tasks = database.list("tasks", {
+          title: search,
+          description: search,
+        });
+        return res.end(JSON.stringify(tasks));
+      }
+
       if (!tasksSaved) {
         return res.writeHead(400).end("Nothing has found");
       }

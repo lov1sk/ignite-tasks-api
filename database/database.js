@@ -29,9 +29,13 @@ export class Database {
     return;
   }
   list(table, search) {
+    let data = this.#database[table] ?? [];
     if (search) {
-      const data = this.#database[table].find((data) => data.id === search);
-      return data;
+      data = data.filter((row) => {
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].includes(value);
+        });
+      });
     }
     const savedData = this.#database[table];
     return savedData;
@@ -48,12 +52,18 @@ export class Database {
 
     if (data.complete) {
       if (this.#database[table][dataIndex].completed_at) {
-        throw new Error("This task has already completed");
+        this.#database[table].splice(dataIndex, 1, {
+          ...this.#database[table][dataIndex],
+          completed_at: false,
+          updated_at: new Date(),
+        });
+        this.#persist();
+        return;
       }
 
       this.#database[table].splice(dataIndex, 1, {
         ...this.#database[table][dataIndex],
-        completed_at: new Date(),
+        completed_at: true,
         updated_at: new Date(),
       });
       this.#persist();

@@ -1,6 +1,7 @@
 import http from "node:http";
 import { jsonMiddleware } from "./middlewares/json.js";
 import { appRoutes } from "./routes.js";
+import { extractQueryParams } from "./utils/extract-query-params.js";
 
 const server = http.createServer(async (req, res) => {
   await jsonMiddleware(req, res);
