@@ -6,9 +6,9 @@ em questão foi muito interessante pois evidenciou varias tecnicas que geralment
 # 🔎 Exemplos:
 
 Em casos que precisamos fazer leitura de parametros que vem do corpo da requisição (request body), a informação em
-si vem em pedaços e utilizando o conceito de streams, uma vez que tudo no node é uma stream,no nosso caso foi feito a partir de streams de leitura,
-a criação de um buffer e a alimentação desse buffer concatenando pedações de informações que chegavam, a fim de obter uma informação completa. O desenvolvimento desta
-logica foi aplicada atravez de um middleware
+si vem em pedaços e utilizando o conceito de streams, uma vez que tudo no node é uma stream.
+No nosso caso a partir de streams de leitura, foi desenvolvido um buffer cujo sua alimentação se dá pela concatenação de pedaços de informações que chegavam, 
+a fim de obter uma informação completa. O desenvolvimento desta logica foi aplicada ao server atraves de um middleware
 
 Em casos onde enviamos parametros pela rota, como query params e route params, foi feito uma regex que capturava a partir da declaração da rota <code>route/:id</code>
 dados que eram enviados do cliente para manualmente poder inserir dentro do objeto request do modulo http.
